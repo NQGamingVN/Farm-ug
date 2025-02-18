@@ -1,7 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options
+from selenium.common.exceptions import NoSuchElementException
+import Options
 import time
 
 # Thiết lập tùy chọn cho Chrome
@@ -26,7 +28,16 @@ try:
     driver.execute_script("window.localStorage.clear();")
 
     print("Đã xóa toàn bộ cookie và local storage.")
-
+    # Vòng lặp để tìm nút với XPath
+    while True:
+        try:
+            # Tìm nút bằng XPath
+            button = driver.find_element(By.XPATH, 'nut1')
+            button.click()  # Bấm vào nút
+            break  # Thoát khỏi vòng lặp nếu nút đã được bấm
+        except NoSuchElementException:
+            # Nếu không tìm thấy nút, đợi một chút và thử lại
+            time.sleep(1)
 finally:
     # Đóng trình duyệt
     driver.quit()
